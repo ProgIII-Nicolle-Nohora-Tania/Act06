@@ -31,15 +31,25 @@ abuela_de(X, Y) :-
     (padre_de(Z, Y); madre_de(Z, Y)).
 
 hermano_de(X, Y) :- 
-    (((padre_de(Z, X), padre_de(Z, Y)), \+ (madre_de(W, X), madre_de(W, Y)));
-    ((madre_de(W, X), madre_de(W, Y)), \+ (padre_de(Z, X), padre_de(Z, Y)));
-    ((padre_de(Z, X), padre_de(Z, Y)), (madre_de(W, X), madre_de(W, Y)))), 
+    ((padre(hombre(Z), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    padre(hombre(Z), L), member(hombre(X),L)), \+ (madre(mujer(W), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    madre(mujer(W), L), member(hombre(X),L)));
+    ((madre(mujer(W), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    madre(mujer(W), L), member(hombre(X),L)), \+ (padre(hombre(Z), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    padre(hombre(Z), L), member(hombre(X),L)));
+    (((padre(hombre(Z), L),member(hombre(X),L)),(padre(hombre(Z),L), (member(hombre(Y),L);member(mujer(Y),L)))),
+     ((madre(mujer(W), L),member(hombre(X),L)),(madre(mujer(W),L), (member(hombre(Y),L);member(mujer(Y),L))))),
     X \= Y.
-
+    
 hermana_de(X, Y) :- 
-    (((padre_de(Z, X), padre_de(Z, Y)), \+ (madre_de(W, X), madre_de(W, Y)));
-    ((madre_de(W, X), madre_de(W, Y)), \+ (padre_de(Z, X), padre_de(Z, Y)));
-    ((padre_de(Z, X), padre_de(Z, Y)), (madre_de(W, X), madre_de(W, Y)))), 
+    ((padre(hombre(Z), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    padre(hombre(Z), L), member(mujer(X),L)), \+ (madre(mujer(W), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    madre(mujer(W), L), member(mujer(X),L)));
+    ((madre(mujer(W), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    madre(mujer(W), L), member(mujer(X),L)), \+ (padre(hombre(Z), L), (member(mujer(Y), L);member(hombre(Y), L)),
+    padre(hombre(Z), L), member(mujer(X),L)));
+    (((padre(hombre(Z), L),member(mujer(X),L)),(padre(hombre(Z),L), (member(hombre(Y),L);member(mujer(Y),L)))),
+     ((madre(mujer(W), L),member(mujer(X),L)),(madre(mujer(W),L), (member(hombre(Y),L);member(mujer(Y),L))))),
     X \= Y.
 
 tio_de(X,Y) :- 
