@@ -16,11 +16,11 @@ madre(mujer(mona), [hombre(homero)]).
 
 madre_de(X, Y) :- madre(mujer(X), L), (member(hombre(Y), L);member(mujer(Y), L)).
 
-hijo_de(X, Y) :- 
-    (madre_de(Y, X); padre_de(Y, X)).
-
-hija_de(X, Y) :- 
-    (madre_de(Y, X); padre_de(Y, X)).
+hijo_de(X, Y) :- ((madre(mujer(Y), L), (member(hombre(X), L)));
+                 (padre(hombre(Y), L), (member(hombre(X), L)))).
+  
+hija_de(X, Y) :- ((madre(mujer(Y), L), (member(mujer(X), L)));
+                 (padre(hombre(Y), L), (member(mujer(X), L)))).
     
 abuelo_de(X, Y) :-
     padre_de(X, Z),         
